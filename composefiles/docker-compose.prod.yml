@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  my_app:
+    image: my_app:prod
+    env_file: .env
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+    ports:
+      - "80:8080"
+    command: ["run_prod"]
+
+networks:
+  default:
+    name: vsz_connector_bridge

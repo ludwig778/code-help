@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  my_app:
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+    build:
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+      context: .
+
+networks:
+  default:
+    name: my_app_bridge

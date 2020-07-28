@@ -1,0 +1,6 @@
+__pycache__
+docs/_build
+.vscode
+*/migrations/*
+!*/migrations/__init__.py
+.coverage

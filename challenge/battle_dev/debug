@@ -1,0 +1,12 @@
+import json
+
+
+dumps = lambda x: json.dumps(x, indent=2)
+
+def p(*args, **kwargs):
+    if args:
+        sys.stderr.write(dumps(args) + "\n")
+    if kwargs:
+        sys.stderr.write(dumps(kwargs) + "\n")
+
+p = print

@@ -1,0 +1,9 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+omit=
+    # python libs installed systemwide
+    /usr/*
+    manage.py
+    # Migrations
+    /*/migrations/*

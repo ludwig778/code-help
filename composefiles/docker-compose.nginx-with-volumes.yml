@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  my_app:
+    volumes:
+      - nginx_config:/my_app/confs/nginx/
+      - static:/my_app/static/
+      - docs:/my_app/docs/_build/html
+
+  nginx:
+    volumes:
+      - nginx_config:/etc/nginx/conf.d/:ro
+      - static:/var/www/my_app/static:ro
+      - docs:/var/www/my_app/docs:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - my_app
+
+volumes:
+  static:
+  nginx_config:
+  docs:
+

@@ -1,0 +1,43 @@
+VERBOSITY=1
+ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+
+create_super_users:
+	echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin') or User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python3 manage.py shell
+
+lint:
+	python3 -m flake8
+
+isort:
+	python3 -m isort
+
+check_outdated_pip:
+	piprot --outdated
+
+test:
+	pytest -vs
+
+sure: lint check_outdated_pip
+	# Make sure that nothing is broken
+
+run_dev: launch_dev_server
+
+run_staging: launch_uwsgi
+
+run_prod: launch_uwsgi
+
+launch_dev_server:
+	python3 connectors/flask_init.py
+
+launch_uwsgi:
+	uwsgi --ini confs/uwsgi/manager-connector.ini
+
+sh:
+	bash
+
+py:
+	ipython3
+
+clean:
+	find -name '*.pyc' -o -name '__pycache__' | tac | xargs rm -rf
+

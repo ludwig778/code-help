@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  my_app:
+    environment:
+      AMQP_HOST: rabbitmq
+      AMQP_QUEUE: my-app-queue
+    depends_on:
+      - amqp
+
+  amqp:
+    image: rabbitmq:3

@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  my_app:
+    environment:
+      INFLUXDB_HOST: influxdb
+      INFLUXDB_DATABASE: analyst
+    depends_on:
+      - influxdb
+
+  influxdb:
+    image: influxdb:latest

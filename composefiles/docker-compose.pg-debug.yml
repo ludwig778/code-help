@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  my_app:
+    environment:
+      PGHOST: db
+      PGDATABASE: my_app
+      PGUSER: my_app
+      PGPASSWORD: my_app123
+    depends_on:
+      - db
+
+  db:
+    image: postgres:9.6    
+    command: "-c 'log_statement=all' -c logging_collector=on"
+    environment:
+      POSTGRES_USER: my_app
+      POSTGRES_PASSWORD: my_app123
+    logging:
+      options:
+        mode: non-blocking
+        max-buffer-size: 4m
