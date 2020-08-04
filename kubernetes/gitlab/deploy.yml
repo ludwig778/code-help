@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: gitlab
+  labels:
+    app: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: gitlab
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:12.0.3-ce.0
+        ports:
+        - containerPort: 22
+          hostPort: 9022
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: config-storage
+          mountPath: /etc/gitlab
+        - name: config-configmap
+          mountPath: /etc/gitlab/gitlab.rb
+          subPath: config
+        - name: datas-storage
+          mountPath: /var/opt/gitlab
+        - name: log-storage
+          mountPath: /var/log/gitlab
+      volumes:
+      - name: config-configmap
+        configMap:
+          name: gitlab-configmap
+      - name: config-storage
+        hostPath:
+          path: /var/kubernetes/gitlab/config
+          type: DirectoryOrCreate
+      - name: datas-storage
+        hostPath:
+          path: /var/kubernetes/gitlab/datas
+          type: DirectoryOrCreate
+      - name: log-storage
+        hostPath:
+          path: /var/kubernetes/gitlab/log
+          type: DirectoryOrCreate

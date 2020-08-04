@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-configmap
+data:
+  config: |
+    external_url 'https://my_domain.fr'
+    nginx['listen_port'] = 80
+    nginx['listen_https'] = false
+    prometheus_monitoring['enable'] = false
+    letsencrypt['enable'] = false 

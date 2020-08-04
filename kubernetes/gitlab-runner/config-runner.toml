@@ -1,0 +1,25 @@
+concurrent = 1
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "Kubernetes gitlab runner"
+  url = "https://gitlab.my_domain.fr/"
+  token = "*****"
+  executor = "kubernetes"
+  [runners.kubernetes]
+    namespace = "default"
+    service_account_overwrite_allowed = "gitlab-runner-controller"
+    host = "https://*kube_apiserver_ip*:8443/"
+    cert_file = "/etc/kube-certs/apiserver.crt"
+    key_file = "/etc/kube-certs/apiserver.key"
+    ca_file = "/etc/kube-certs/ca.crt"
+    privileged = true
+    service_account = "gitlab-admin"
+    [[runners.kubernetes.volumes.host_path]]
+      name = "docker-socket"
+      mount_path = "/var/run/docker.sock"
+      read_only = false
+      host_path = "/var/run/docker.sock"

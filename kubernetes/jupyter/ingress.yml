@@ -1,0 +1,16 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jupyter
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: jupyter.my_domain.fr
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jupyter
+          servicePort: 8888

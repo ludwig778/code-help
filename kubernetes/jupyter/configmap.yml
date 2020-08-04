@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jupyter-configmap
+data:
+  config: |
+    c.NotebookApp.ip = '*'
+    c.NotebookApp.allow_origin = '*'
+    c.NotebookApp.allow_remote_access = True
+    c.NotebookApp.password = 'sha1:cce4fbd303c3:8063007698ff2d2f2df44bbc584a1bac9cfef8ad'
+    c.NotebookApp.password_required = True
+    c.NotebookApp.port = 8888
+    c.NotebookApp.open_browser = False
+    c.NotebookNotary.db_file = ':memory:'
+    c.NotebookApp.notebook_dir = '/notebooks/'

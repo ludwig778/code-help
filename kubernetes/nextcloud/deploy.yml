@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app: nextcloud
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 33 /var/www/html/data"]
+        volumeMounts:
+        - name: datas-storage
+          mountPath: /var/www/html/data/ludwig/files/
+        - name: config-storage
+          mountPath: /var/www/html
+      containers:
+      - name: nextcloud
+        image: nextcloud:16.0.1-apache
+        ports:
+        - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: nextcloud-secrets
+        volumeMounts:
+        - name: datas-storage
+          mountPath: /var/www/html/data/ludwig/files/
+        - name: config-storage
+          mountPath: /var/www/html
+      - name: postgres
+        image: postgres:11
+        envFrom:
+        - secretRef:
+            name: nextcloud-postgres-secrets
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-datas-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: datas-storage
+          hostPath:
+            path: "/datas"
+            type: DirectoryOrCreate
+        - name: config-storage
+          hostPath:
+            path: "/var/kubernetes/nextcloud/config-storage"
+            type: DirectoryOrCreate
+        - name: postgres-datas-storage
+          hostPath:
+            path: "/var/kubernetes/nextcloud/postgres-datas-storage"
+            type: DirectoryOrCreate

@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: jupyter
+  labels:
+    app: jupyter
+spec:
+  selector:
+    matchLabels:
+      app: jupyter
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:100 /notebooks"]
+        volumeMounts:
+        - name: notebooks-storage
+          mountPath: /notebooks
+      containers:
+      - name: jupyter
+        image: jupyter/datascience-notebook:latest
+        ports:
+        - containerPort: 8888
+        volumeMounts:
+        - name: notebooks-storage
+          mountPath: /notebooks
+        - name: config-configmap
+          mountPath: /home/jovyan/.jupyter/jupyter_notebook_config.py
+          subPath: config
+      volumes:
+        - name: notebooks-storage
+          hostPath:
+            path: "/var/kubernetes/jupyter/notebooks-storage"
+            type: DirectoryOrCreate
+        - name: config-configmap
+          configMap:
+            name: jupyter-configmap

@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: gitlab-runner
+  labels:
+    app: gitlab-runner
+spec:
+  selector:
+    matchLabels:
+      app: gitlab-runner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: gitlab-runner
+    spec:
+      imagePullSecrets:
+      - name: "regcred"
+      containers:
+      - name: gitlab-runner
+        image: gitlab/gitlab-runner:v11.11.1
+        volumeMounts:
+        - name: api-certs
+          mountPath: /etc/kube-certs/
+        - name: config-storage
+          mountPath: /etc/gitlab-runner/
+      volumes:
+      - name: api-certs
+        hostPath:
+          path: "/var/kube-certs"
+      - name: config-storage
+        hostPath:
+          path: "/var/kubernetes/gitlab-runner/config"
+          type: DirectoryOrCreate
