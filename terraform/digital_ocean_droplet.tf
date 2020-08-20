@@ -11,3 +11,9 @@ resource "digitalocean_droplet" "my_app" {
   ]
   user_data = cloud_init = data.template_cloudinit_config.cloudinit_config.rendered 
 }
+
+resource "digitalocean_floating_ip" "my_ip" {
+  droplet_id = digitalocean_droplet.my_app.id
+  region = digitalocean_droplet.my_app.region
+}
+
