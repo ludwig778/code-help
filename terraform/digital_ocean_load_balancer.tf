@@ -23,3 +23,7 @@ resource "digitalocean_loadbalancer" "public" {
 
     droplet_ids = [for node in digitalocean_kubernetes_cluster.my_cluster.node_pool[0].nodes: node.droplet_id]
 }
+
+output "load_balancer_ip" {
+    value = digitalocean_loadbalancer.public.ip
+}
