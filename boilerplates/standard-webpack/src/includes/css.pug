@@ -1,0 +1,3 @@
+if (typeof(htmlWebpackPlugin) !== 'undefined') && htmlWebpackPlugin.options.inject === false
+  each css in htmlWebpackPlugin.files.css
+    link(href=css, rel='stylesheet')

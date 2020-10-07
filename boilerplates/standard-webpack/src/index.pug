@@ -1,0 +1,130 @@
+extends base.pug
+
+block head
+  title Cv Arthur Laurent
+  
+  include includes/css.pug
+
+block content
+  body
+    .container
+      .columns
+        .column.side-column
+          img.main_image(src='img/arthur_photo.jpg')
+
+          h1 Laurent Arthur
+          a(href='#')
+            i.fas.fa-spinner
+            i.fas.fa-spinner
+            i.fas.fa-spinner.fa-spin
+          h3 29 ans
+
+          h2 Contact
+          p Email: laurent.arthur75@gmail.com
+          p Adresse: 64 rue Brancion, Paris 75015
+          p Tel.: 07 81 29 91 41
+
+          h2 Compétences
+
+          h3 Devops
+          p.
+            Docker, Docker-compose, Kubernetes, Ansible, 
+            terraform, Prometheus, grafana, gitlab-ci, 
+            Jenkins
+
+          h3 Backend
+          p.
+            Python, Django, Django-Rest-Framework, 
+            Nginx, Flask, Rails, Postgres, Mongodb, 
+            Redis, Influxdb
+
+          h3 Frontend
+          p.
+            HTML5, CSS3, javascript, react, webpack, 
+            flexbox, Bootstrap, sass, pug
+
+          h3 Autres
+          p.
+            Bash, Debian, Linux networking/utility tools, 
+            DNS, TCP/IP, AWS, S3, Letsencrypt
+
+          h2 Intérets
+          p.
+
+        main.column.main-column
+          
+          h1.title Ingénieur Logiciel/Devops
+        
+          h2.section-title Diplômes
+
+          .diplomas
+
+            .diploma
+              h4.diploma_date 2016-2017
+              div.diploma_info
+                h3 Master 2, Expert en ingénierie sécurité informatique
+
+            .diploma
+              h4.diploma_date 2014-2016
+              div.diploma_info
+                h3 Master 1, Administrateur systèmes, réseaux et base de données
+                p.mention Félicitations du jury
+
+            .diploma
+              h4.diploma_date 2011-2013
+              div.diploma_info
+                h3 Lycée Dorian - BTS Informatique et réseaux pour l’industrie et les services (IRIS)
+
+            .diploma
+              h4.diploma_date 2011
+              div.diploma_info
+                h3 Lycée Dorian - Bac STI électronique
+                p.mention Mention assez bien
+
+          
+          h2.section-title Expériences
+
+          .jobs
+
+            .job
+              h4 Septembre 2017 - aujourd’hui (3 ans)
+              h3 Wifirst - Développeur architecture
+
+              ul.tasks
+                li Administration de serveurs Linux et d'équipements actifs (switches, routeurs, points d'accès WiFi)
+                li Automatisation de tâches (Python/bash)
+                li Mise en service
+                li Déclenchement et suvi d'interventions
+                li Gestion des lignes ADSL/fibre
+
+            .job
+              h4 Septembre 2016 - septembre 2017 (1 an)
+              h3 Wifirst - Apprenti Ingénieur systèmes et réseaux
+
+              ul.tasks
+                li Administration de serveurs Linux et d'équipements actifs (switches, routeurs, points d'accès WiFi)
+                li Automatisation de tâches (Python/bash)
+                li Mise en service
+                li Déclenchement et suvi d'interventions
+                li Gestion des lignes ADSL/fibre
+
+            .job
+              h4 Septembre 2014 - septembre 2016 (2 ans)
+              h3 Wifirst - Administrateur Système et Réseau
+
+              ul.tasks
+                li Administration de serveurs Linux et d'équipements actifs (switches, routeurs, points d'accès WiFi)
+                li Automatisation de tâches (Python/bash)
+                li Mise en service
+                li Déclenchement et suvi d'interventions
+                li Gestion des lignes ADSL/fibre
+
+            .job
+              h4 Janvier 2012 - aout 2013 (1 an 8 mois)
+              h3 Allied Telesis - Technicien support technique niveau 1 en alternance
+
+              ul.tasks
+                li Traitement des demandes clients
+                li Diagnostic matériel et logiciel (Switch, routeur, point d'accès Wifi)
+                li Logistique, et suivi RMA
+                li Configuration spécifique de matériels

@@ -1,0 +1,107 @@
+$side-bar-percents: 30%;
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+$image-size: 180px;
+.main_image {
+    padding: 10px 0 10px 0;
+    width: $image-size;
+    height: $image-size;
+    border-radius: 100%;
+    align-self: center;
+}
+
+ul {
+    list-style-position:inside;
+}
+
+.container {
+    display: flex;
+    min-height: 100%;
+    background-color: yellow;
+    align-items: center;
+    justify-content: center;
+}
+
+.columns {
+    display: flex;
+    width: 827px;
+    height: 1170px;
+    background-color: orange;
+}
+
+.side-column {
+    display: flex;
+    flex-direction: column;
+    width: $side-bar-percents;
+    background-color: lightgreen;
+
+}
+
+.title {
+    font-size: 2.3em;
+    padding: 40px 0 20px 0;
+    align-self: center;
+}
+
+.section-title {
+    padding: 20px 0 5px 20px;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    width: 100% - $side-bar-percents;
+    background-color: lightcoral;
+}
+
+.diplomas {
+    padding: 10px 5px;
+}
+
+.diploma {
+    display: flex;
+    padding: 5px 10px;
+}
+
+$test: 15%;
+.diploma_date {
+    width: $test;
+    background-color: lightblue;
+}
+
+.diploma_info {
+    width: 100% - $test;
+    background-color: lightslategray;
+}
+
+.mention {
+    padding: 5px 0 10px 10px;
+}
+
+.jobs {
+    padding: 10px 5px;
+
+    .job {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 10px 20px 10px;
+
+        h4 {
+            background-color: lightpink;
+            
+        }
+
+        h3 {
+            background-color: lightsteelblue;
+        }
+
+        ul {
+            padding-left: 30px;
+            background-color: lightseagreen;
+        }
+    }
+}
