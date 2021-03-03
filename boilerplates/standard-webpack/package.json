@@ -24,7 +24,7 @@
     "html-webpack-skip-assets-plugin": "0.0.2",
     "mini-css-extract-plugin": "^0.11.0",
     "path": "^0.12.7",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "pug-html-loader": "^1.1.5",
     "pug-loader": "^2.4.0",
     "sass": "^1.26.10",
