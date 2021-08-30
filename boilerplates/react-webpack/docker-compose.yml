@@ -6,5 +6,7 @@ services:
     build: .
     volumes:
       - .:/app/
+      - /app/dist
+      - /app/node_modules
     ports:
       - "5000:5000"
