@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    image: test_fast_api:dev
+    build: .
+    environment:
+      - SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=fastapi
+      - POSTGRES_PASSWORD=pass123
+    volumes:
+      - .:/app
+      - /app/.poetry
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    command: run_dev_server
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: fastapi
+      POSTGRES_PASSWORD: pass123

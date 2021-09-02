@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "fast-api-test"
+version = "0.0.1"
+description = "Test repository of fast api features."
+authors = ["Laurent Arthur <laurent.arthur75@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9.0"
+fastapi = "^0.68.1"
+SQLAlchemy = "^1.4.23"
+alembic = "^1.7.1"
+uvicorn = "^0.15.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.5"
+pydantic = {extras = ["email"], version = "^1.8.2"}
+psycopg2-binary = "^2.9.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+black = "^21.8b0"
+mypy = "^0.910"
+piprot = "^0.9.11"
+ipython = "^7.27.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
