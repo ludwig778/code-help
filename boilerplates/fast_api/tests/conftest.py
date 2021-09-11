@@ -1,16 +1,40 @@
+from copy import deepcopy
+
+from fastapi.testclient import TestClient
 from pytest import fixture
 
+from app.core.hashing import get_password_hash
+from app.db.models import Base, User
+from app.db.session import Session, engine, get_db
 from app.main import get_app
-from fastapi.testclient import TestClient
-from app.db.models import Base
-from app.db.session import session_factory, engine
-from app.repository.users import create_new_user
-from app.schemas import UserCreate
 
 
-@fixture(scope="session")
-def app():
-    return get_app()
+@fixture(scope="function")
+def setup_database():
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+    yield
+
+    Base.metadata.drop_all(engine)
+
+
+@fixture(scope="function")
+def db_session():
+    with Session() as session:
+        yield session
+
+
+@fixture(scope="function")
+def app(setup_database, db_session):
+    app = get_app()
+
+    def override_get_db():
+        yield db_session
+
+    app.dependency_overrides[get_db] = override_get_db
+
+    yield app
 
 
 @fixture(scope="function")
@@ -18,70 +42,62 @@ def unauthorized_client(app):
     return TestClient(app)
 
 
-@fixture(scope="function")
-def admin_client(app):
-    client = TestClient(app)
-
-    response = client.post("/api/v1/login/", data={"username": "user_1", "password": "secret_1"})
+def login(client, username, password):
+    response = client.post(
+        "/api/v1/login/", data={"username": username, "password": password}
+    )
     access_token = response.json().get("access_token")
 
     client.headers.update({"Authorization": f"Bearer {access_token}"})
+
+    return client
+
+
+@fixture(scope="function")
+def admin_client(app):
+    client = login(TestClient(app), "user_1", "secret_1")
 
     return client
 
 
 @fixture(scope="function")
 def client(app):
-    client = TestClient(app)
-
-    response = client.post("/api/v1/login/", data={"username": "user_2", "password": "secret_2"})
-    access_token = response.json().get("access_token")
-
-    client.headers.update({"Authorization": f"Bearer {access_token}"})
+    client = login(TestClient(app), "user_2", "secret_2")
 
     return client
 
 
-@fixture(scope="function")
-def db_session():
-    Base.metadata.create_all(bind=engine)
-
-    session = session_factory()
-
-    yield session
-
-    session.close()
-    Base.metadata.drop_all(bind=engine)
+@fixture(scope="session")
+def users():
+    return [
+        User(
+            username="user_1",
+            email="user_1@example.com",
+            hashed_password=get_password_hash("secret_1"),
+            is_active=True,
+            is_superuser=True,
+        ),
+        User(
+            username="user_2",
+            email="user_2@example.com",
+            hashed_password=get_password_hash("secret_2"),
+            is_active=True,
+            is_superuser=False,
+        ),
+        User(
+            username="user_3",
+            email="user_3@example.com",
+            hashed_password=get_password_hash("secret_3"),
+            is_active=False,
+            is_superuser=False,
+        ),
+    ]
 
 
 @fixture(autouse=True, scope="function")
-def seed_database(db_session):
-    users = [
-        {
-            "id": 1,
-            "username": "user_1",
-            "email": "user_1@example.com",
-            "password": "secret_1",
-            "is_active": True,
-            "is_superuser": True,
-        },
-        {
-            "id": 2,
-            "username": "user_2",
-            "email": "user_2@example.com",
-            "password": "secret_2",
-            "is_active": True,
-            "is_superuser": False,
-        },
-        {
-            "id": 3,
-            "username": "user_3",
-            "email": "user_3@example.com",
-            "password": "secret_3",
-            "is_active": False,
-            "is_superuser": False,
-        },
-    ]
+def seed_database(setup_database, db_session, users):
 
-    for user in users:
-        create_new_user(db_session, UserCreate(**user))
+    db_session.add_all(deepcopy(users))
+    db_session.commit()
+
+    yield

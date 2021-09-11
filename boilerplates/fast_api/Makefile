@@ -1,3 +1,6 @@
+ARGS = $(filter-out $@,$(MAKECMDGOALS))
+
+
 default: run_dev_server
 
 wait_for_db:
@@ -9,10 +12,6 @@ migrate: wait_for_db
 run_dev_server: migrate
 	poetry run uvicorn app.main:get_app --host 0.0.0.0 --reload --access-log --factory
 
-st: wait_for_db
-	 #PGPASSWORD=${POSTGRES_PASSWORD} psql -h db -U fastapi -c "\dt"
-	 PGPASSWORD=${POSTGRES_PASSWORD} psql -h db -U fastapi -c 'select * from "user";'
-
 sh:
 	bash
 
@@ -23,10 +22,18 @@ lint:
 	poetry run flake8
 
 black:
-	black --line-length 125 .
+	black .
 
-tests: migrate
-	pytest -vvss .
+mypy:
+	poetry run mypy app/
+
+tests:
+	pytest
+
+test_on:
+	pytest ${ARGS}
+
+sure: lint mypy tests
 
 clean:
 	rm -rf .pytest_cache

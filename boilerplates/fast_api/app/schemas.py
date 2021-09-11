@@ -26,7 +26,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: Optional[str] = None
+    username: str
 
 
 class User(BaseModel):
@@ -34,7 +34,3 @@ class User(BaseModel):
     email: Optional[str] = None
     is_active: Optional[bool] = None
     is_superuser: Optional[bool] = None
-
-
-class UserInDB(User):
-    hashed_password: str
