@@ -21,6 +21,9 @@ py:
 lint:
 	poetry run flake8
 
+isort:
+	poetry run isort hartware_lib/ tests/
+
 black:
 	black .
 
@@ -33,7 +36,7 @@ tests:
 test_on:
 	pytest ${ARGS}
 
-sure: lint mypy tests
+sure: tests lint mypy isort black
 
 clean:
 	rm -rf .pytest_cache
