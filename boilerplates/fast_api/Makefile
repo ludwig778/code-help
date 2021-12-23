@@ -12,6 +12,9 @@ migrate: wait_for_db
 run_dev_server: migrate
 	poetry run uvicorn app.main:get_app --host 0.0.0.0 --reload --access-log --factory
 
+run_prod_server: migrate
+	poetry run uvicorn app.main:get_app --host 0.0.0.0 --factory ${ARGS}
+
 sh:
 	bash
 
