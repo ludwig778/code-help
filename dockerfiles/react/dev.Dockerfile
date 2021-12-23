@@ -1,15 +1,14 @@
-FROM node:13-buster-slim
+FROM node:17.2.0-bullseye-slim
 
-RUN apt update && \
-    apt install -y make && \
-    rm -rf /var/lib/apt/lists/*
+RUN mkdir /app && chown -R node:node /app
 
-WORKDIR /my_app
-COPY package.json .
+ENV PATH=$PATH:/app/node_modules/.bin
+USER node
+WORKDIR /app
 
+COPY --chown=node:node package.json package-lock.json ./
 RUN npm install
 
-ENV PATH /my_app/node_modules/.bin:$PATH
+COPY . .
 
-ENTRYPOINT ["make"]
-CMD ["run_dev"]
+ENTRYPOINT ["npm", "run"]
