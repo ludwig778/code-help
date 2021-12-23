@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  app:
+    image: react-app:latest
+    build: .
+    volumes:
+      - .:/app/
+    ports:
+      - "5000:5000"
+    command: "dev"
