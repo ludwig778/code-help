@@ -2,11 +2,10 @@ version: "3.8"
 
 services:
   app:
-    image: react-base-app:latest
+    image: react-app:latest
     build: .
     volumes:
       - .:/app/
-      - /app/dist
-      - /app/node_modules
     ports:
       - "5000:5000"
+    command: "dev"

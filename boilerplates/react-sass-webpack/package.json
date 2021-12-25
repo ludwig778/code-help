@@ -4,7 +4,12 @@
   "description": "React boiler plate",
   "scripts": {
     "sh": "bash",
-    "dev": "webpack-dev-server --config webpack.config.js"
+    "dev": "webpack-dev-server",
+    "test": "jest",
+    "test:cov": "jest --coverage=true",
+    "test:debug": "jest --verbose --watchAll",
+    "build": "webpack build",
+    "build:prod": "webpack build --env production"
   },
   "author": "",
   "license": "ISC",
