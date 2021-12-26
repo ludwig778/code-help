@@ -5,6 +5,7 @@
   "scripts": {
     "sh": "bash",
     "dev": "webpack-dev-server",
+    "lint": "eslint src",
     "test": "jest",
     "test:cov": "jest --coverage=true",
     "test:debug": "jest --verbose --watchAll",
@@ -23,6 +24,10 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.5.1",
+    "eslint": "^8.5.0",
+    "eslint-config-react-app": "^7.0.0",
+    "eslint-plugin-jest-dom": "^3.9.4",
+    "eslint-plugin-testing-library": "^5.0.1",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "npm-check-updates": "^12.0.5",
