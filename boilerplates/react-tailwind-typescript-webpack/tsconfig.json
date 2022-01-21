@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "jsx": "react",
+    "module": "es6",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "**/__tests__"
+  ]
+}
