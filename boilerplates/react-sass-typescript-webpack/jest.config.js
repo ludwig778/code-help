@@ -1,6 +1,7 @@
 module.exports = {
   verbose: true,
   setupFilesAfterEnv: ["./src/tests/setup.tsx"],
+  moduleFileExtensions: ["tsx", "ts", "js"],
   testMatch: [
     "**/__tests__/*.test.(js|jsx|ts|tsx)",
   ],
