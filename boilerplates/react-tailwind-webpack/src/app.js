@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default () => {
   return (
@@ -6,4 +6,4 @@ export default () => {
       <h1 className="text-xl">MyApp</h1>
     </div>
   );
-}
+};

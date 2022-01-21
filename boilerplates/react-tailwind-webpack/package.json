@@ -4,14 +4,18 @@
   "description": "React boiler plate",
   "scripts": {
     "sh": "bash",
-    "dev": "webpack-dev-server",
     "lint": "eslint src",
+    "prettier": "prettier --write src/",
+    "dev": "webpack-dev-server",
     "test": "jest",
     "test:cov": "jest --coverage=true",
     "test:debug": "jest --verbose --watchAll",
+    "test:types": "tsc --project tsconfig.json --noEmit",
+    "test:types:debug": "tsc --project tsconfig.json --noEmit --watch",
     "build": "webpack build",
     "build:postcss": "postcss src/styles/main.css -o dist/output.css",
-    "build:prod": "webpack build --env production"
+    "build:prod": "webpack build --env production",
+    "check": "npm run test; npm run lint"
   },
   "author": "",
   "license": "ISC",
@@ -36,6 +40,7 @@
     "postcss-cli": "^9.1.0",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.1.0",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "style-loader": "^3.3.1",
