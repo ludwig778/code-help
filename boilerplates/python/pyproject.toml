@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "python-boilerplate"
+version = "0.0.1"
+description = "Test repository of Python projects."
+authors = ["Laurent Arthur <laurent.arthur75@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+black = "^21.8b0"
+mypy = "^0.910"
+piprot = "^0.9.11"
+ipython = "^7.27.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
