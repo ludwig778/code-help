@@ -23,7 +23,7 @@ flake8 = "^3.9.2"
 black = "^21.8b0"
 mypy = "^0.910"
 piprot = "^0.9.11"
-ipython = "^7.27.0"
+ipython = "^7.31.1"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.23"}
 
 [build-system]
